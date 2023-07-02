@@ -1,5 +1,5 @@
-// import React, { useState, useEffect } from 'react';
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+// import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 // import { nanoid } from 'nanoid';
 import { ContactForm } from './ContactForm/ContactForm';
@@ -7,11 +7,11 @@ import { Filter } from './Filter/Filter';
 import { ContactList } from './ContactList/ContactList';
 import { PhonebookImg } from './PhonebookImg/PhonebookImg';
 import css from './styles/styles.module.css';
-import defaultData from './data/data.json'
+// import defaultData from './data/data.json'
 
 import { getContacts, getFilter } from 'redux/selectors';
 import { useSelector, useDispatch } from 'react-redux';
-import { addContact, delContact } from 'redux/actions';
+import { addContact, deleteContact } from 'redux/actions';
 
 
 
@@ -30,19 +30,37 @@ export const App = () => {
   const dispatch = useDispatch();
 
   
-  // const [isFirstRender, setFlag] = useState(true);
-  // if (condition) {
-    
-  // }
+  const [isFirstRender, setFlag] = useState(true);
   
   useEffect(() => {
-    const contactsFromLocalStorage = localStorage.getItem(KEY_LOCALSTORAGE);
-    return contactsFromLocalStorage === null ? defaultData : JSON.parse(contactsFromLocalStorage);    
-  }, []);
+    if (isFirstRender) {
+      const contactsFromLocalStorage = localStorage.getItem('contactList');
 
-  useEffect(() => {
-    localStorage.setItem(KEY_LOCALSTORAGE, JSON.stringify(contacts));    
-  }, [contacts]);
+      if (contactsFromLocalStorage !== 'undefined') {
+        const parsedContacts = JSON.parse(contactsFromLocalStorage);
+
+        if (parsedContacts) {
+        }
+      }
+      setFlag(false);
+    } else {
+      localStorage.setItem('contactList', JSON.stringify(contacts));
+    }
+  }, [contacts, isFirstRender]);
+  
+  // useEffect(() => {
+  //   // setFlag(false);
+  //   const contacts = localStorage.getItem(KEY_LOCALSTORAGE);
+  //   return contacts === null || contacts === 'undefined' ? defaultData : JSON.parse(contacts);
+  // }, []);
+
+  // useEffect(() => {
+  //   if (isFirstRender) {
+  //     setFlag(false);
+  //     return;
+  //   };
+  //   localStorage.setItem(KEY_LOCALSTORAGE, JSON.stringify(contacts));    
+  // }, [contacts]);
 
   const handleSubmit = evt => {
     // const id = nanoid();
@@ -78,7 +96,7 @@ export const App = () => {
 
   const handleDelete = evt => {
     // setContacts(contacts.filter(contact => contact.id !== evt));
-    dispatch(delContact(evt));
+    dispatch(deleteContact(evt));
   };
 
   return (      
