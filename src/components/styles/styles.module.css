@@ -16,3 +16,14 @@
   box-shadow: 2px 4px 6px;
   width: 100%;  
 }
+
+.sectionContacts {
+  /* padding-left: 5vw; */
+  width: 40vw;
+}
+
+section h1,
+section h2 {
+  text-align: center;
+  /* padding-right: 10vw; */
+}

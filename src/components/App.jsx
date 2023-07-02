@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react';
-// import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-// import { nanoid } from 'nanoid';
 import { ContactForm } from './ContactForm/ContactForm';
 import { Filter } from './Filter/Filter';
 import { ContactList } from './ContactList/ContactList';
 import { PhonebookImg } from './PhonebookImg/PhonebookImg';
 import css from './styles/styles.module.css';
-// import defaultData from './data/data.json'
+import defaultData from './data/data.json'
 
 import { getContacts, getFilter } from 'redux/selectors';
 import { useSelector, useDispatch } from 'react-redux';
@@ -18,13 +16,8 @@ import { addContact, deleteContact } from 'redux/actions';
 const KEY_LOCALSTORAGE = 'contactList';
 
 export const App = () => {
-  // const [contacts, setContacts] = useState(() => {
-  //   const contactsFromLocalStorage = localStorage.getItem(KEY_LOCALSTORAGE);
-  //   return contactsFromLocalStorage === null ? defaultData : JSON.parse(contactsFromLocalStorage);    
-  // });
   const contacts = useSelector(getContacts);
   
-  // const [filter, setFilter] = useState('');
   const filter = useSelector(getFilter);
 
   const dispatch = useDispatch();
@@ -34,36 +27,17 @@ export const App = () => {
   
   useEffect(() => {
     if (isFirstRender) {
-      const contactsFromLocalStorage = localStorage.getItem('contactList');
-
-      if (contactsFromLocalStorage !== 'undefined') {
-        const parsedContacts = JSON.parse(contactsFromLocalStorage);
-
-        if (parsedContacts) {
-        }
-      }
+      const contacts = localStorage.getItem('KEY_LOCALSTORAGE');
       setFlag(false);
+      const parsed = contacts === null || contacts === 'undefined' ? defaultData : JSON.parse(contacts);
+      if (parsed) { }
+      
     } else {
       localStorage.setItem('contactList', JSON.stringify(contacts));
     }
   }, [contacts, isFirstRender]);
-  
-  // useEffect(() => {
-  //   // setFlag(false);
-  //   const contacts = localStorage.getItem(KEY_LOCALSTORAGE);
-  //   return contacts === null || contacts === 'undefined' ? defaultData : JSON.parse(contacts);
-  // }, []);
-
-  // useEffect(() => {
-  //   if (isFirstRender) {
-  //     setFlag(false);
-  //     return;
-  //   };
-  //   localStorage.setItem(KEY_LOCALSTORAGE, JSON.stringify(contacts));    
-  // }, [contacts]);
 
   const handleSubmit = evt => {
-    // const id = nanoid();
     const name = evt.name;
     const number = evt.number;
     const contactsLists = [...contacts];
@@ -71,18 +45,11 @@ export const App = () => {
     if (contactsLists.findIndex(contact => name === contact.name) !== -1) {
       return alert(`${name} is already in contacts.`);
     } else {
-      // contactsLists.push({id, name, number}); 
       dispatch(addContact(name, number));
     }
-
-    // setContacts(contactsLists);
+    
     localStorage.setItem(KEY_LOCALSTORAGE, JSON.stringify(contactsLists));
   };
-
-  // const handleChange = evt => {
-  //   const {value} = evt.target;
-  //   setFilter(value);
-  // };
 
   const сontactFiltered = () => {
     const filterContactsList = contacts.filter(contact => {
@@ -95,7 +62,6 @@ export const App = () => {
   };
 
   const handleDelete = evt => {
-    // setContacts(contacts.filter(contact => contact.id !== evt));
     dispatch(deleteContact(evt));
   };
 
@@ -109,9 +75,8 @@ export const App = () => {
           <h1>Phonebook</h1>
           <ContactForm handleSubmit={handleSubmit} />          
         </section>
-        <section>
+        <section className={css.sectionContacts}>
           <h2> Contacts</h2>
-          {/* <Filter filter={filter} handleChange={handleChange} /> */}
           <Filter />
           <ContactList
             contacts={сontactFiltered()}

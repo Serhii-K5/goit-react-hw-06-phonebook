@@ -5,7 +5,6 @@ import css from './ContactForm.module.css';
 export const ContactForm = ({handleSubmit}) => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
-  // const [keyLocalStorege, setKeyLocalStorege] = useState('contactList');
 
   const handleChangeName = evt => {
     const {value} = evt.target;
@@ -45,7 +44,6 @@ export const ContactForm = ({handleSubmit}) => {
           placeholder="Enter name"
         />
       </label>
-      {/* <label className={css.formLabel} for={css.formNumber}>Number </label> */}
       <label className={css.formLabel}>Number
         <input
           className={css.formNumber}
