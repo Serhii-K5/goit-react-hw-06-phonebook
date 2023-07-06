@@ -2,7 +2,7 @@
 import css from './Filter.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { getFilter } from 'redux/selectors';
-import { setFilter } from 'redux/actions';
+import { setFilter } from 'redux/contactsSlice';
 
 export const Filter = () => {
   const dispatch = useDispatch();
@@ -11,18 +11,20 @@ export const Filter = () => {
   const handleChange = evt => {
     dispatch(setFilter(evt.target.value));
   };
-  <>
-    <label className={css.filterLabel}>Find contacts by Name
-      <input
-        className={css.filterName}
-        type="text"
-        name="filter"
-        placeholder="Enter name"
-        value={filter}
-        onChange={handleChange}
-      />
-    </label>
-  </>
+  return(
+    <div className={css.filterLabel}>
+      <label>Find contacts by Name
+        <input
+          className={css.filterName}
+          type="text"
+          name="filter"
+          placeholder="Enter name"
+          value={filter}
+          onChange={handleChange}
+        />
+      </label>
+    </div>
+  )
 };
 
 // Filter.propTypes = {

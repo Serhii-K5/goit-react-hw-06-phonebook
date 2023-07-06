@@ -9,9 +9,9 @@ import defaultData from './data/data.json'
 
 import { getContacts, getFilter } from 'redux/selectors';
 import { useSelector, useDispatch } from 'react-redux';
-import { addContact, deleteContact } from 'redux/actions';
+import { addContact, deleteContact } from 'redux/contactsSlice';
 
-
+import { nanoid } from 'nanoid';
 
 const KEY_LOCALSTORAGE = 'contactList';
 
@@ -24,6 +24,8 @@ export const App = () => {
 
   
   const [isFirstRender, setFlag] = useState(true);
+
+  // useEffect(() => {}, []);
   
   useEffect(() => {
     if (isFirstRender) {
@@ -44,18 +46,27 @@ export const App = () => {
 
     if (contactsLists.findIndex(contact => name === contact.name) !== -1) {
       return alert(`${name} is already in contacts.`);
-    } else {
-      dispatch(addContact(name, number));
     }
+
+    const сontact = {
+      id: nanoid(),
+      name: name.trim(),
+      number: number.trim(),
+    };
     
+    dispatch(addContact(сontact));
     localStorage.setItem(KEY_LOCALSTORAGE, JSON.stringify(contactsLists));
   };
 
   const сontactFiltered = () => {
     const filterContactsList = contacts.filter(contact => {
-      return contact.name
-        .toLowerCase()
-        .includes(filter.toLowerCase());
+      if (contact.name === undefined) {
+        return '';
+      } else {
+        return contact.name
+          .toLowerCase()
+          .includes(filter.toLowerCase());
+      }
     });
 
     return filterContactsList;
@@ -77,7 +88,7 @@ export const App = () => {
         </section>
         <section className={css.sectionContacts}>
           <h2> Contacts</h2>
-          <Filter />
+          <Filter/>
           <ContactList
             contacts={сontactFiltered()}
             handleDelete={handleDelete}
