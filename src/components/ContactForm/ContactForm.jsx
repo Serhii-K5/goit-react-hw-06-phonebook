@@ -1,18 +1,9 @@
 import propTypes from 'prop-types';
-// import React, { useEffect, useState } from 'react';
 import React, { useState } from 'react';
 import css from './ContactForm.module.css';
 
-// import { useDispatch, useSelector } from 'react-redux';
-// import { getContacts } from 'redux/selectors';
-// import { addContact } from 'redux/contactsSlice';
-// import { nanoid } from 'nanoid';
-
 
 export const ContactForm = ({ handleSubmit }) => {
-  // const dispatch = useDispatch();
-  // const contacts = useSelector(getContacts);
-
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
   

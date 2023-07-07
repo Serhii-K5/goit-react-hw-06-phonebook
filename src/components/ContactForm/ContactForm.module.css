@@ -6,7 +6,8 @@
 .formNumber {
   margin: 10px auto;
   padding: 10px;
-  width: 30vw;  
+  /* width: 30vw;  */
+  width: 100%;  
   font-size: large;
 }
 
@@ -20,9 +21,10 @@
 }
 
 .formBtn {
-  margin: 10px 3vw;
+  /* margin: 10px 3vw; */
+  margin: 10px 15%;
   padding: 10px;
-  width: 25vw;
+  width: 75%;
   
   font-size: 15px;
   font-weight:bold;

@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { ContactForm } from './ContactForm/ContactForm';
-import { Filter } from './Filter/Filter';
-import { ContactList } from './ContactList/ContactList';
-import { PhonebookImg } from './PhonebookImg/PhonebookImg';
-import css from './styles/styles.module.css';
-import defaultData from './data/data.json'
+import { ContactForm } from './components/ContactForm/ContactForm';
+import { Filter } from './components/Filter/Filter';
+import { ContactList } from './components/ContactList/ContactList';
+import { PhonebookImg } from './components/PhonebookImg/PhonebookImg';
+import css from 'styles/styles.module.css';
+import defaultData from 'data/data.json'
 
 import { getContacts, getFilter } from 'redux/selectors';
 import { useSelector, useDispatch } from 'react-redux';
@@ -24,8 +24,6 @@ export const App = () => {
 
   
   const [isFirstRender, setFlag] = useState(true);
-
-  // useEffect(() => {}, []);
   
   useEffect(() => {
     if (isFirstRender) {

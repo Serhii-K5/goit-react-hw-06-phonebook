@@ -1,6 +1,6 @@
 // import propTypes from 'prop-types';
 import css from './PhonebookImg.module.css';
-import notepadSpring from '../img/notepad-spring.jpg';
+import notepadSpring from 'images/notepad-spring.jpg';
 
 export const PhonebookImg = () =>
   (<div>
